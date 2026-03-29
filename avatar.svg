@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Frankie avatar">
-  <rect width="128" height="128" rx="64" fill="#1a1714"/>
-  <circle cx="64" cy="46" r="22" fill="#f5c842"/>
-  <path d="M26 102c6-18 22-28 38-28s32 10 38 28" fill="#f5c842"/>
-  <circle cx="56" cy="44" r="2.4" fill="#1a1714"/>
-  <circle cx="72" cy="44" r="2.4" fill="#1a1714"/>
-  <path d="M55 55c3 3 15 3 18 0" fill="none" stroke="#1a1714" stroke-width="3" stroke-linecap="round"/>
-</svg>
