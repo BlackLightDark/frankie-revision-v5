@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frankie's Revision Plan — v3 split</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <img src="avatar.svg" class="avatar" alt="Frankie avatar">
+    <div>
+      <div class="header-meta">GCSE Revision · Apr–Jun 2026</div>
+      <h1>Frankie's <span>Revision</span></h1>
+    </div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-label">
+      <span id="progress-text">0 tasks done</span>
+      <span id="progress-pct">0%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+  <div id="traffic-light-wrap" style="display:flex;flex-direction:column;align-items:center;gap:6px;min-width:80px;">
+    <div id="traffic-light" style="font-size:2rem;line-height:1;">⚪</div>
+    <div id="traffic-label" style="font-size:0.7rem;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:0.07em;text-align:center;"></div>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('timetable')">Timetable</div>
+  <div class="tab" onclick="switchTab('exams')">Exam Priority</div>
+  <div class="tab" onclick="switchTab('revision')">Revision</div>
+  <div class="tab" onclick="switchTab('examtable')">Exam Timetable</div>
+</div>
+
+<div class="container">
+
+  <!-- TIMETABLE PANEL -->
+  <div class="panel active" id="panel-timetable">
+
+    <div class="dashboard-grid">
+      <section class="focus-card">
+        <div class="focus-kicker">Today’s focus</div>
+        <div class="focus-title" id="today-focus-title">Locked in.</div>
+        <div class="focus-subtext" id="today-focus-subtext">A cleaner view of what matters right now.</div>
+        <div class="micro-stats" id="today-micro-stats"></div>
+        <div class="focus-list" id="today-focus-list"></div>
+      </section>
+
+      <div class="dashboard-side">
+        <section class="mini-card">
+          <div class="small-label">Visible tasks</div>
+          <div class="big" id="visible-task-count">0</div>
+          <div class="small-copy" id="visible-task-copy">Nothing loaded yet.</div>
+        </section>
+
+        <section class="mini-card">
+          <div class="small-label">Current streak</div>
+          <div class="big" id="streak-count">0</div>
+          <div class="small-copy">Based on consecutive days with at least one task ticked off.</div>
+        </section>
+
+        <section class="mini-card next-exam-card">
+          <div class="small-label">Next exam</div>
+          <div class="big" id="next-exam-countdown">—</div>
+          <div class="small-copy" id="next-exam-copy">Exam countdown will show here.</div>
+        </section>
+
+        <section class="mini-card">
+          <div class="small-label">This week</div>
+          <div class="big" id="week-score">0%</div>
+          <div class="small-copy" id="week-score-copy">Weekly completion score will show here.</div>
+        </section>
+      </div>
+    </div>
+
+    <div id="countdown-strip" class="countdown-strip"></div>
+
+    <div class="control-bar">
+      <section class="control-card">
+        <div class="section-kicker">Filter the chaos</div>
+        <div class="filter-row" id="subject-filter-row"></div>
+      </section>
+
+      <section class="control-card">
+        <div class="section-kicker">View options</div>
+        <div class="filter-row">
+          <button class="toggle-chip" id="toggle-done-btn" onclick="toggleHideDone()">Hide completed</button>
+          <button class="ghost-btn" onclick="jumpToToday()">Jump to today</button>
+          <button class="ghost-btn" onclick="printPlanner()">Print view</button>
+          <button class="ghost-btn warn" onclick="resetAllProgress()">Reset progress</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot subj-maths"></div> Maths</div>
+      <div class="legend-item"><div class="legend-dot subj-lit"></div> English/Lit</div>
+      <div class="legend-item"><div class="legend-dot subj-bio"></div> Biology</div>
+      <div class="legend-item"><div class="legend-dot subj-chem"></div> Chemistry</div>
+      <div class="legend-item"><div class="legend-dot subj-physics"></div> Physics</div>
+      <div class="legend-item"><div class="legend-dot subj-history"></div> History</div>
+      <div class="legend-item"><div class="legend-dot subj-geog"></div> Geography</div>
+      <div class="legend-item"><div class="legend-dot subj-art"></div> Art</div>
+      <div class="legend-item"><div class="legend-dot subj-music"></div> Music</div>
+      <div style="width:1px;background:var(--border);margin:0 4px;"></div>
+      <div class="legend-item"><span style="font-size:0.65rem;background:#fef3e2;color:#92400e;border:1px solid #fcd34d;padding:1px 5px;border-radius:3px;font-weight:600;">🐣</span> Holiday revision</div>
+      <div class="legend-item"><span style="font-size:0.65rem;background:#e0f2fe;color:#0369a1;border:1px solid #7dd3fc;padding:1px 5px;border-radius:3px;font-weight:600;">+</span> Added by Claude</div>
+      <div class="legend-item"><span style="font-size:0.65rem;background:#dc2626;color:white;padding:1px 5px;border-radius:3px;font-weight:700;">LIVE</span> Exam today</div>
+      <div class="legend-item"><span style="font-size:0.65rem;background:#fee2e2;color:#991b1b;border:1px solid #fca5a5;padding:1px 5px;border-radius:3px;font-weight:600;">📝</span> Upcoming exam</div>
+      <div class="legend-item"><span style="font-size:0.65rem;background:#e5f2eb;color:#1e6b3e;border:1px solid #a7d7b8;padding:1px 5px;border-radius:3px;font-weight:600;">✓</span> Exam done</div>
+    </div>
+
+    <div id="weeks-container"></div>
+
+  </div>
+
+  <!-- EXAM PRIORITY PANEL -->
+  <div class="panel" id="panel-exams">
+    <div class="exam-lists" id="exam-lists-container"></div>
+  </div>
+
+  <!-- EXAM TIMETABLE PANEL -->
+  <div class="panel" id="panel-examtable">
+    <div id="examtable-container"></div>
+  </div>
+
+  <!-- REVISION PANEL -->
+  <div class="panel" id="panel-revision">
+    <div id="revision-home">
+      <p style="font-size:0.85rem;color:var(--ink-light);margin-bottom:16px;">Pick a subject to get key topics and AI-generated revision notes.</p>
+      <div class="revision-toolbar">
+        <button class="toggle-chip" id="revision-upcoming-btn" onclick="toggleUpcomingRevisionMode()">Upcoming exam subjects only</button>
+        <div class="revision-toolbar-copy" id="revision-filter-copy">Showing the full deck.</div>
+      </div>
+      <div id="subject-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;"></div>
+    </div>
+    <div id="revision-detail" style="display:none;">
+      <button onclick="backToSubjects()" style="background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.82rem;color:var(--ink-light);padding:0;margin-bottom:20px;display:flex;align-items:center;gap:6px;">← Back to subjects</button>
+      <div id="revision-detail-inner"></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
